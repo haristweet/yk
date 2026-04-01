@@ -188,6 +188,38 @@ YOKOHAMA_VENUES = [
         ],
         "note": "2025年3月末に休館",
     },
+    {
+        "name": "ニッパツ三ツ沢球技場",
+        "lat": 35.4692,
+        "lng": 139.6037,
+        "type": "stadium",
+        "capacity": 15454,
+        "schedule_urls": [
+            "https://yokohamafc.com/game/schedule/",
+        ],
+        "js_rendered": True,
+    },
+    {
+        "name": "横浜BUNTAI",
+        "lat": 35.4410,
+        "lng": 139.6365,
+        "type": "arena",
+        "capacity": 5000,
+        "schedule_urls": [
+            "https://yokohama-buntai.jp/event/",
+        ],
+        "js_rendered": True,
+    },
+    {
+        "name": "KT Zepp Yokohama",
+        "lat": 35.4598,
+        "lng": 139.6259,
+        "type": "livehouse",
+        "capacity": 2146,
+        "schedule_urls": [
+            "https://www.zepp.co.jp/hall/yokohama/schedule/",
+        ],
+    },
 ]
 
 
@@ -684,6 +716,67 @@ def parse_landmarkhall(html, url, target_date=None):
     return events
 
 
+def parse_zepp_yokohama(html, url, target_date=None):
+    """KT Zepp Yokohama: sch-content ブロック、日付は sch-content-date__month"""
+    today = target_date or date.today()
+    today_month_day = f"{today.month}.{today.day}"  # "4.1"
+    today_year = str(today.year)                    # "2026"
+    events = []
+
+    # <a class="sch-content..."> ブロックを全て抽出
+    blocks = re.findall(
+        r'<a\s+class="(sch-content[^"]*?)"\s+href="([^"]+)">(.*?)</a>',
+        html, re.DOTALL
+    )
+    for cls, href, block in blocks:
+        # プライベートイベントスキップ
+        if 'sch-private' in cls:
+            continue
+
+        # 日付チェック
+        year_m  = re.search(r'sch-content-date__year[^>]*>(\d{4})<', block)
+        month_m = re.search(r'sch-content-date__month[^>]*>([\d.]+)<', block)
+        if not year_m or not month_m:
+            continue
+        if year_m.group(1) != today_year or month_m.group(1) != today_month_day:
+            continue
+
+        # タイトル
+        title_m = re.search(r'sch-content-text__ttl[^>]*>([^<]+)<', block)
+        if not title_m:
+            continue
+        title = clean_text(title_m.group(1))
+        if not title or title.lower() == 'private' or len(title) < 2:
+            continue
+
+        # パフォーマー名があればタイトルに追加
+        performer_m = re.search(r'sch-content-text__performer[^>]*>([^<]+)<', block)
+        if performer_m:
+            performer = clean_text(performer_m.group(1))
+            if performer and performer != title:
+                title = f"{performer}「{title}」"
+
+        # 開演時間
+        start_m = re.search(r'sch-content-text-date__start[^>]*>([^<]+)<', block)
+        open_m  = re.search(r'sch-content-text-date__open[^>]*>([^<]+)<', block)
+        time_str = ""
+        for m in [start_m, open_m]:
+            if m:
+                hm = re.search(r'(\d{1,2}):(\d{2})', clean_text(m.group(1)))
+                if hm:
+                    time_str = f"{int(hm.group(1)):02d}:{hm.group(2)}"
+                    break
+
+        events.append({
+            "title": title,
+            "time": time_str or "時間未定",
+            "genre": guess_genre(title),
+            "url": href,
+        })
+
+    return events
+
+
 # パーサー登録: 会場名 -> (パーサー関数, URL)
 VENUE_PARSERS = {
     "ぴあアリーナMM": (parse_pia_arena_mm, None),
@@ -693,6 +786,7 @@ VENUE_PARSERS = {
     "横浜にぎわい座": (parse_nigiwaiza, None),
     "横浜ベイホール": (parse_bayhall, None),
     "横浜ランドマークホール": (parse_landmarkhall, None),
+    "KT Zepp Yokohama": (parse_zepp_yokohama, None),
 }
 
 
