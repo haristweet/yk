@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>横浜 イベント検索</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0f1e;
+  --card: #111827;
+  --card-hover: #1a2438;
+  --accent: #3b82f6;
+  --accent-light: #93c5fd;
+  --text: #f0f4ff;
+  --text-muted: #64748b;
+  --border: #1e2d45;
+  --warning: #fbbf24;
+  --genre-live: #f472b6;
+  --genre-sports: #34d399;
+  --genre-classic: #a78bfa;
+  --genre-stage: #fb923c;
+  --genre-other: #fbbf24;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+header {
+  padding: 10px 16px;
+  background: rgba(10,15,30,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.logo-icon {
+  width: 30px; height: 30px;
+  background: var(--accent); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.logo-text { font-size: 16px; font-weight: 700; }
+.logo-sub  { font-size: 11px; color: var(--text-muted); }
+
+.date-badge {
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(59,130,246,0.3);
+  color: var(--accent-light);
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.main { display: flex; flex: 1; overflow: hidden; }
+#map { flex: 1; background: #0d1520; }
+
+.sidebar {
+  width: 370px; flex-shrink: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+  display: flex; flex-direction: column;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* 会場選択パネル */
+.venue-selector { border-bottom: 1px solid var(--border); flex-shrink: 0; }
+
+.venue-selector-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; cursor: pointer; user-select: none;
+}
+.venue-selector-header:hover { background: rgba(255,255,255,0.03); }
+
+.vs-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.vs-count {
+  font-size: 11px;
+  background: rgba(59,130,246,0.15); color: var(--accent-light);
+  padding: 1px 7px; border-radius: 10px;
+}
+.vs-toggle { font-size: 11px; color: var(--text-muted); transition: transform 0.2s; }
+.venue-selector.open .vs-toggle { transform: rotate(180deg); }
+
+.venue-selector-body { display: none; padding: 0 14px 12px; }
+.venue-selector.open .venue-selector-body { display: block; }
+
+.vs-actions { display: flex; gap: 8px; margin-bottom: 10px; }
+.vs-btn {
+  font-size: 11px; color: var(--accent-light);
+  background: none; border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 4px; padding: 3px 9px; cursor: pointer;
+}
+.vs-btn:hover { background: rgba(59,130,246,0.1); }
+
+.venue-group { margin-bottom: 8px; }
+.venue-group-label {
+  font-size: 10px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;
+}
+.venue-checkbox-list { display: flex; flex-direction: column; gap: 4px; }
+.venue-check-item {
+  display: flex; align-items: center; gap: 7px;
+  cursor: pointer; padding: 3px 4px; border-radius: 5px;
+}
+.venue-check-item:hover { background: rgba(255,255,255,0.04); }
+.venue-check-item input[type="checkbox"] { accent-color: var(--accent); width: 13px; height: 13px; cursor: pointer; }
+.venue-check-item label { font-size: 12px; cursor: pointer; flex: 1; }
+
+/* 結果エリア */
+.results-area { flex: 1; padding: 12px; }
+
+.status-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+.status-text { font-size: 12px; color: var(--text-muted); }
+.event-count {
+  background: var(--accent); color: white;
+  border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 600;
+}
+
+.venue-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px; margin-bottom: 8px;
+  cursor: pointer; transition: all 0.15s;
+}
+.venue-card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateX(2px); }
+.venue-card.no-events { opacity: 0.45; }
+
+.venue-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 5px; }
+.venue-name { font-size: 14px; font-weight: 700; }
+.venue-meta { display: flex; gap: 5px; margin-bottom: 6px; flex-wrap: wrap; }
+.venue-tag { font-size: 10px; padding: 2px 6px; border-radius: 3px; background: rgba(255,255,255,0.07); color: var(--text-muted); }
+.venue-link { font-size: 11px; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; margin-bottom: 6px; }
+.venue-link:hover { color: var(--accent-light); }
+
+.event-item {
+  background: rgba(255,255,255,0.03); border-left: 3px solid var(--genre-other);
+  border-radius: 0 5px 5px 0; padding: 7px 9px; margin-top: 5px;
+}
+.event-item[data-genre="ライブ"]     { border-left-color: var(--genre-live); }
+.event-item[data-genre="スポーツ"]   { border-left-color: var(--genre-sports); }
+.event-item[data-genre="クラシック"] { border-left-color: var(--genre-classic); }
+.event-item[data-genre="舞台"]       { border-left-color: var(--genre-stage); }
+
+.event-title { font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 3px; }
+.event-detail { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--text-muted); }
+
+.genre-badge { font-size: 10px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+.genre-badge[data-genre="ライブ"]     { background: rgba(244,114,182,0.2); color: var(--genre-live); }
+.genre-badge[data-genre="スポーツ"]   { background: rgba(52,211,153,0.2);  color: var(--genre-sports); }
+.genre-badge[data-genre="クラシック"] { background: rgba(167,139,250,0.2); color: var(--genre-classic); }
+.genre-badge[data-genre="舞台"]       { background: rgba(251,146,60,0.2);  color: var(--genre-stage); }
+.genre-badge[data-genre="演芸"]       { background: rgba(251,191,36,0.2);  color: var(--genre-other); }
+.genre-badge[data-genre="展示"]       { background: rgba(100,116,139,0.2); color: #94a3b8; }
+
+.ticket-link { font-size: 11px; color: var(--accent-light); text-decoration: none; margin-top: 3px; display: inline-block; }
+.ticket-link:hover { text-decoration: underline; }
+.no-events-msg { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+.empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); }
+.empty-state .icon { font-size: 40px; margin-bottom: 14px; }
+.empty-state h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
+.empty-state p { font-size: 13px; line-height: 1.7; }
+
+.loading-spinner { text-align: center; padding: 50px 20px; color: var(--text-muted); }
+.spinner {
+  width: 32px; height: 32px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 14px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.note-badge { font-size: 10px; padding: 1px 5px; border-radius: 3px; background: rgba(251,191,36,0.15); color: var(--warning); }
+
+.leaflet-popup-content-wrapper { background: var(--card) !important; color: var(--text) !important; border-radius: 10px !important; border: 1px solid var(--border) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; }
+.leaflet-popup-tip { background: var(--card) !important; }
+.leaflet-popup-content { margin: 10px 14px !important; font-family: inherit !important; font-size: 12px !important; }
+.popup-title { font-weight: 700; font-size: 13px; margin-bottom: 5px; }
+.popup-event { padding: 3px 0; border-top: 1px solid var(--border); margin-top: 3px; color: var(--text-muted); }
+.popup-no-events { color: var(--text-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">⚓</div>
+    <div>
+      <div class="logo-text">横浜イベント検索</div>
+      <div class="logo-sub">Yokohama Events</div>
+    </div>
+  </div>
+  <span class="date-badge" id="dateBadge">読み込み中...</span>
+</header>
+
+<div class="main">
+  <div id="map"></div>
+  <div class="sidebar">
+
+    <!-- 会場フィルター -->
+    <div class="venue-selector open" id="venueSelector">
+      <div class="venue-selector-header" onclick="toggleVenueSelector()">
+        <span class="vs-title">
+          🏛️ 会場を絞り込む
+          <span class="vs-count" id="vsCount">16 / 16</span>
+        </span>
+        <span class="vs-toggle">▼</span>
+      </div>
+      <div class="venue-selector-body">
+        <div class="vs-actions">
+          <button class="vs-btn" onclick="setAllChecked(true)">全選択</button>
+          <button class="vs-btn" onclick="setAllChecked(false)">全解除</button>
+        </div>
+        <div class="venue-group">
+          <div class="venue-group-label">アリーナ・スタジアム</div>
+          <div class="venue-checkbox-list" id="grp-arena"></div>
+        </div>
+        <div class="venue-group">
+          <div class="venue-group-label">ホール</div>
+          <div class="venue-checkbox-list" id="grp-hall"></div>
+        </div>
+        <div class="venue-group">
+          <div class="venue-group-label">ライブハウス</div>
+          <div class="venue-checkbox-list" id="grp-livehouse"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 結果 -->
+    <div class="results-area" id="resultsArea">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>イベント情報を読み込んでいます...</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// =============================================
+// 会場チェックボックス定義
+// =============================================
+const VENUES_META = [
+  { name: "Kアリーナ横浜",         group: "arena" },
+  { name: "ぴあアリーナMM",         group: "arena" },
+  { name: "横浜アリーナ",           group: "arena" },
+  { name: "横浜スタジアム",         group: "arena" },
+  { name: "日産スタジアム",         group: "arena" },
+  { name: "横浜みなとみらいホール", group: "hall" },
+  { name: "パシフィコ横浜",         group: "hall" },
+  { name: "KAAT神奈川芸術劇場",     group: "hall" },
+  { name: "横浜にぎわい座",         group: "hall" },
+  { name: "横浜ランドマークホール", group: "hall" },
+  { name: "神奈川県立音楽堂",       group: "hall" },
+  { name: "横浜関内ホール",         group: "hall" },
+  { name: "横浜赤レンガ倉庫",       group: "hall" },
+  { name: "神奈川県民ホール",       group: "hall" },
+  { name: "横浜ベイホール",         group: "livehouse" },
+  { name: "F.A.D YOKOHAMA",        group: "livehouse" },
+];
+
+function buildCheckboxes() {
+  const groups = { arena: [], hall: [], livehouse: [] };
+  VENUES_META.forEach(v => groups[v.group].push(v.name));
+  Object.entries(groups).forEach(([grp, names]) => {
+    const el = document.getElementById(`grp-${grp}`);
+    names.forEach(name => {
+      const item = document.createElement('label');
+      item.className = 'venue-check-item';
+      item.innerHTML = `
+        <input type="checkbox" value="${name}" checked onchange="applyFilter()">
+        <label>${name}</label>`;
+      el.appendChild(item);
+    });
+  });
+  updateVsCount();
+}
+
+function updateVsCount() {
+  const all     = document.querySelectorAll('.venue-check-item input');
+  const checked = document.querySelectorAll('.venue-check-item input:checked');
+  document.getElementById('vsCount').textContent = `${checked.length} / ${all.length}`;
+}
+
+function setAllChecked(val) {
+  document.querySelectorAll('.venue-check-item input').forEach(cb => cb.checked = val);
+  updateVsCount();
+  applyFilter();
+}
+
+function toggleVenueSelector() {
+  document.getElementById('venueSelector').classList.toggle('open');
+}
+
+function getCheckedNames() {
+  return new Set([...document.querySelectorAll('.venue-check-item input:checked')].map(cb => cb.value));
+}
+
+buildCheckboxes();
+
+// =============================================
+// 地図
+// =============================================
+const map = L.map('map').setView([35.4555, 139.6380], 13);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 19
+}).addTo(map);
+
+const venueIcons = { stadium:'🏟️', arena:'🎪', hall:'🎵', livehouse:'🎸' };
+let markers = [];
+let allVenues = [];
+
+function createVenueIcon(type, hasEvents) {
+  return L.divIcon({
+    html: `<div style="
+      font-size:18px;width:32px;height:32px;
+      display:flex;align-items:center;justify-content:center;
+      background:${hasEvents ? '#3b82f6' : '#1e2d45'};
+      border-radius:50%;
+      border:2px solid ${hasEvents ? '#93c5fd' : '#334155'};
+      opacity:${hasEvents ? 1 : 0.6};
+      box-shadow:${hasEvents ? '0 0 10px rgba(59,130,246,0.5)' : 'none'};
+    ">${venueIcons[type] || '📍'}</div>`,
+    iconSize: [32,32], iconAnchor: [16,16], popupAnchor: [0,-18], className: ''
+  });
+}
+
+// =============================================
+// データ読み込み
+// =============================================
+async function loadData() {
+  try {
+    const res = await fetch('./events.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    allVenues = data.venues || data;
+
+    // ヘッダーの日付バッジを更新
+    const d = new Date(data.date + 'T00:00:00');
+    const WD = ['日','月','火','水','木','金','土'];
+    const dateLabel = `${d.getMonth()+1}月${d.getDate()}日（${WD[d.getDay()]}）`;
+    const scrapedAt = data.scraped_at ? ` · 更新 ${data.scraped_at.slice(11,16)}` : '';
+    document.getElementById('dateBadge').textContent = dateLabel + scrapedAt;
+
+    applyFilter();
+  } catch(e) {
+    document.getElementById('dateBadge').textContent = 'データなし';
+    document.getElementById('resultsArea').innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <h3>データ取得エラー</h3>
+        <p>events.json が見つかりません。<br>GitHub Actions を実行してください。<br><small style="color:#ef4444">${e.message}</small></p>
+      </div>`;
+  }
+}
+
+// =============================================
+// フィルタリングと表示（チェックボックス変更で即時）
+// =============================================
+function applyFilter() {
+  updateVsCount();
+  const checked = getCheckedNames();
+  const venues = allVenues.filter(v => checked.has(v.name));
+  renderResults(venues);
+}
+
+function renderResults(venues) {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  venues.forEach(v => {
+    if (!v.lat || !v.lng) return;
+    const hasEvents = v.events && v.events.length > 0;
+
+    let popup = `<div class="popup-title">${venueIcons[v.type]||''} ${v.name}</div>`;
+    if (hasEvents) {
+      v.events.forEach(e => { popup += `<div class="popup-event">🕐 ${e.time}　${e.title}</div>`; });
+    } else {
+      popup += '<div class="popup-no-events">イベント情報なし</div>';
+    }
+
+    const m = L.marker([v.lat, v.lng], { icon: createVenueIcon(v.type, hasEvents) })
+      .addTo(map).bindPopup(popup);
+    markers.push(m);
+  });
+
+  const totalEvents = venues.reduce((s, v) => s + (v.events?.length || 0), 0);
+  const typeLabel = { stadium:'スタジアム', arena:'アリーナ', hall:'ホール', livehouse:'ライブハウス' };
+
+  let html = `
+    <div class="status-bar">
+      <span class="status-text">${venues.length}会場を表示中</span>
+      <span class="event-count">${totalEvents}件</span>
+    </div>`;
+
+  if (venues.length === 0) {
+    html += `<div class="empty-state"><div class="icon">☑️</div><h3>会場を選択してください</h3></div>`;
+  } else {
+    venues.forEach(v => {
+      const hasEvents = v.events && v.events.length > 0;
+      const mi = markers.findIndex(m =>
+        Math.abs(m.getLatLng().lat - v.lat) < 0.0001 &&
+        Math.abs(m.getLatLng().lng - v.lng) < 0.0001
+      );
+      html += `
+        <div class="venue-card ${hasEvents ? '' : 'no-events'}"
+             onclick="${mi >= 0 ? `map.setView([${v.lat},${v.lng}],15);markers[${mi}].openPopup()` : ''}">
+          <div class="venue-header">
+            <span class="venue-name">${venueIcons[v.type]||''} ${v.name}</span>
+            ${v.note ? `<span class="note-badge">${v.note}</span>` : ''}
+          </div>
+          <div class="venue-meta">
+            <span class="venue-tag">${typeLabel[v.type] || v.type}</span>
+            ${v.capacity ? `<span class="venue-tag">最大${v.capacity.toLocaleString()}人</span>` : ''}
+          </div>`;
+
+      if (v.website) {
+        html += `<a class="venue-link" href="${v.website}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 公式スケジュール</a>`;
+      }
+
+      if (hasEvents) {
+        v.events.forEach(e => {
+          html += `
+            <div class="event-item" data-genre="${e.genre}">
+              <div class="event-title">${e.title}</div>
+              <div class="event-detail">
+                <span>🕐 ${e.time}</span>
+                <span class="genre-badge" data-genre="${e.genre}">${e.genre}</span>
+              </div>
+              ${e.url && e.url !== '#' ? `<a class="ticket-link" href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">詳細ページ →</a>` : ''}
+            </div>`;
+        });
+      } else if (v.status === 'js_rendered') {
+        html += `<div class="no-events-msg">※ JS動的サイトのため自動取得不可 — <a href="${v.website}" target="_blank" rel="noopener" style="color:var(--accent-light)" onclick="event.stopPropagation()">公式で確認 →</a></div>`;
+      } else if (v.status === 'fetch_failed') {
+        html += `<div class="no-events-msg" style="color:#ef4444;">サイト取得エラー</div>`;
+      } else {
+        html += `<div class="no-events-msg">イベントなし</div>`;
+      }
+
+      html += '</div>';
+    });
+  }
+
+  document.getElementById('resultsArea').innerHTML = html;
+}
+
+// 起動時に読み込み
+loadData();
+</script>
+</body>
+</html>
