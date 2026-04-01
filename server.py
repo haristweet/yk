@@ -716,6 +716,59 @@ def parse_landmarkhall(html, url, target_date=None):
     return events
 
 
+def parse_yokohamafc(html, url, target_date=None):
+    """横浜FC（ニッパツ三ツ沢）: ゲームURL (YYMMDD) + テキスト抽出でホーム試合を判定"""
+    today = target_date or date.today()
+    today_code = today.strftime("%y%m%d")  # "260401"
+    weekdays_ja = ['月', '火', '水', '木', '金', '土', '日']
+    wd = weekdays_ja[today.weekday()]
+    today_date_str = f"{today.month}/{today.day}（"  # "4/4（" — 曜日の後がバリエーションあるので開き括弧まで
+
+    events = []
+
+    # 今日のゲームURLがあるか確認（存在しなければ試合なし）
+    game_urls = re.findall(
+        rf'href="(https://yokohamafc\.com/g/{today_code}[^"]+)"', html
+    )
+    if not game_urls:
+        return []
+
+    # テキスト化してホームゲームか確認
+    text = re.sub(r'<[^>]+>', ' ', html)
+    text = html_mod.unescape(re.sub(r'\s+', ' ', text)).strip()
+
+    # 今日の日付位置を探す
+    pos = text.find(today_date_str)
+    if pos == -1:
+        return []
+    section = text[pos:pos + 300]
+
+    # ニッパツ三ツ沢でのホームゲームか
+    if 'ニッパツ三ツ沢' not in section:
+        return []
+
+    # 時間
+    time_m = re.search(r'(\d{1,2}:\d{2})', section)
+    time_str = time_m.group(1) if time_m else "時間未定"
+
+    # 対戦相手: "横浜ＦＣ vs {opponent}" パターン
+    opp_m = re.search(r'横浜(?:ＦＣ|FC)\s*vs\s*(.+?)(?:\s{2,}|試合|チケット|$)', section)
+    if not opp_m:
+        return []
+    opponent = clean_text(opp_m.group(1))
+    if not opponent:
+        return []
+
+    detail_url = game_urls[0].rstrip('#result').rstrip('/')  + '/'
+    events.append({
+        "title": f"横浜FC vs {opponent}",
+        "time": time_str,
+        "genre": "スポーツ",
+        "url": detail_url,
+    })
+    return events
+
+
 def parse_zepp_yokohama(html, url, target_date=None):
     """KT Zepp Yokohama: sch-content ブロック、日付は sch-content-date__month"""
     today = target_date or date.today()
@@ -787,6 +840,7 @@ VENUE_PARSERS = {
     "横浜ベイホール": (parse_bayhall, None),
     "横浜ランドマークホール": (parse_landmarkhall, None),
     "KT Zepp Yokohama": (parse_zepp_yokohama, None),
+    "ニッパツ三ツ沢球技場": (parse_yokohamafc, None),
 }
 
 

@@ -1,6 +1,6 @@
 {
   "date": "2026-04-01",
-  "scraped_at": "2026-04-01T18:46",
+  "scraped_at": "2026-04-01T18:52",
   "venues": [
     {
       "name": "ぴあアリーナMM",
@@ -61,30 +61,6 @@
       ],
       "status": "ok",
       "distance": 1.4
-    },
-    {
-      "name": "ニッパツ三ツ沢球技場",
-      "lat": 35.4692,
-      "lng": 139.6037,
-      "type": "stadium",
-      "capacity": 15454,
-      "website": "https://yokohamafc.com/game/schedule/",
-      "events": [
-        {
-          "title": "2（日） NDソフトスタジアム山形 <img alt=\"モンテディオ山形\" loading=\"lazy\" decoding=\"async\" data-nimg=\"fill\" class=\"object",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://yokohamafc.com/game/schedule/"
-        },
-        {
-          "title": "9（日） ソユースタジアム <img alt=\"ブラウブリッツ秋田\" loading=\"lazy\" decoding=\"async\" data-nimg=\"fill\" class=\"object-co",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://yokohamafc.com/game/schedule/"
-        }
-      ],
-      "status": "ok",
-      "distance": 4.1
     },
     {
       "name": "横浜みなとみらいホール",
@@ -164,12 +140,12 @@
       "distance": 1.2
     },
     {
-      "name": "横浜スタジアム",
-      "lat": 35.4434,
-      "lng": 139.6401,
-      "type": "stadium",
-      "capacity": 34046,
-      "website": "https://www.baystars.co.jp/game/schedule/",
+      "name": "F.A.D YOKOHAMA",
+      "lat": 35.443,
+      "lng": 139.638,
+      "type": "livehouse",
+      "capacity": 250,
+      "website": "http://www.fad-music.com/fad/?page_id=3",
       "events": [],
       "status": "no_events",
       "distance": 1.4
@@ -186,12 +162,12 @@
       "distance": 1.4
     },
     {
-      "name": "F.A.D YOKOHAMA",
-      "lat": 35.443,
-      "lng": 139.638,
-      "type": "livehouse",
-      "capacity": 250,
-      "website": "http://www.fad-music.com/fad/?page_id=3",
+      "name": "横浜スタジアム",
+      "lat": 35.4434,
+      "lng": 139.6401,
+      "type": "stadium",
+      "capacity": 34046,
+      "website": "https://www.baystars.co.jp/game/schedule/",
       "events": [],
       "status": "no_events",
       "distance": 1.4
@@ -229,6 +205,17 @@
       "events": [],
       "status": "js_rendered",
       "distance": 1.6
+    },
+    {
+      "name": "ニッパツ三ツ沢球技場",
+      "lat": 35.4692,
+      "lng": 139.6037,
+      "type": "stadium",
+      "capacity": 15454,
+      "website": "https://yokohamafc.com/game/schedule/",
+      "events": [],
+      "status": "js_rendered",
+      "distance": 4.1
     },
     {
       "name": "横浜アリーナ",
