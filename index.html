@@ -188,6 +188,48 @@ header {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* =============================================
+   モバイル対応 (768px以下)
+   地図(上40%) + サイドバー(下60%) の縦積み
+============================================= */
+@media (max-width: 768px) {
+  header {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .logo-sub { display: none; }
+  .logo-text { font-size: 14px; }
+  .date-badge { font-size: 11px; padding: 4px 8px; }
+
+  .main { flex-direction: column; }
+
+  #map {
+    flex: none;
+    height: 40dvh;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar {
+    width: 100%;
+    flex: 1;
+    border-left: none;
+    overflow-y: auto;
+  }
+
+  /* 会場チェックリストをグリッド表示（2列）でコンパクトに */
+  .venue-checkbox-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  /* カードのホバーアニメーションはスマホで無効化 */
+  .venue-card:hover { transform: none; }
+
+  .results-area { padding: 10px; }
+}
+
 .note-badge { font-size: 10px; padding: 1px 5px; border-radius: 3px; background: rgba(251,191,36,0.15); color: var(--warning); }
 
 .leaflet-popup-content-wrapper { background: var(--card) !important; color: var(--text) !important; border-radius: 10px !important; border: 1px solid var(--border) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; }
