@@ -1,25 +1,7 @@
 {
   "date": "2026-04-02",
-  "scraped_at": "2026-04-02T02:17",
+  "scraped_at": "2026-04-02T22:54",
   "venues": [
-    {
-      "name": "横浜ランドマークホール",
-      "lat": 35.4555,
-      "lng": 139.6324,
-      "type": "hall",
-      "capacity": 500,
-      "website": "https://landmarkhall.jp/schedule/",
-      "events": [
-        {
-          "title": "詳細未定",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://landmarkhall.jp/schedule/2026/04/9238/"
-        }
-      ],
-      "status": "ok",
-      "distance": 0.6
-    },
     {
       "name": "横浜にぎわい座",
       "lat": 35.443,
@@ -33,6 +15,24 @@
           "time": "14:00",
           "genre": "演芸",
           "url": "https://nigiwaiza.yafjp.org/perform/archives/31119"
+        }
+      ],
+      "status": "ok",
+      "distance": 1.4
+    },
+    {
+      "name": "KT Zepp Yokohama",
+      "lat": 35.4598,
+      "lng": 139.6259,
+      "type": "livehouse",
+      "capacity": 2146,
+      "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
+      "events": [
+        {
+          "title": "Tempalay 対バン：くるり「Tempalay presents \"Fusion-HA.\"」",
+          "time": "19:00",
+          "genre": "イベント",
+          "url": "https://www.zepp.co.jp/hall/yokohama/schedule/single/?rid=155947"
         }
       ],
       "status": "ok",
@@ -88,6 +88,17 @@
       "events": [],
       "status": "no_events",
       "distance": 0.4
+    },
+    {
+      "name": "横浜ランドマークホール",
+      "lat": 35.4555,
+      "lng": 139.6324,
+      "type": "hall",
+      "capacity": 500,
+      "website": "https://landmarkhall.jp/schedule/",
+      "events": [],
+      "status": "no_events",
+      "distance": 0.6
     },
     {
       "name": "横浜赤レンガ倉庫",
@@ -162,17 +173,6 @@
       "type": "livehouse",
       "capacity": 250,
       "website": "http://www.fad-music.com/fad/?page_id=3",
-      "events": [],
-      "status": "no_events",
-      "distance": 1.4
-    },
-    {
-      "name": "KT Zepp Yokohama",
-      "lat": 35.4598,
-      "lng": 139.6259,
-      "type": "livehouse",
-      "capacity": 2146,
-      "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
       "events": [],
       "status": "no_events",
       "distance": 1.4
