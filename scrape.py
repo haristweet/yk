@@ -7,15 +7,17 @@ GitHub Actions から毎日自動実行される。
 
 import json
 import math
-from datetime import date, datetime
+from datetime import date, datetime, timezone, timedelta
 
 from server import scrape_all_venues
 
 CENTER_LAT, CENTER_LNG = 35.4555, 139.6380
+JST = timezone(timedelta(hours=9))
 
 def main():
-    target_date = date.today()
-    print(f"[scrape.py] {target_date.isoformat()} のイベントを取得中...")
+    now_jst = datetime.now(JST)
+    target_date = now_jst.date()
+    print(f"[scrape.py] {target_date.isoformat()} のイベントを取得中... (JST: {now_jst.strftime('%Y-%m-%d %H:%M')})")
 
     venues = scrape_all_venues(target_date)
 
@@ -28,7 +30,7 @@ def main():
 
     output = {
         "date": target_date.isoformat(),
-        "scraped_at": datetime.now().isoformat(timespec="minutes"),
+        "scraped_at": now_jst.strftime("%Y-%m-%dT%H:%M"),
         "venues": venues,
     }
 
