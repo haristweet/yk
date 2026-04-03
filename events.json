@@ -1,49 +1,7 @@
 {
-  "date": "2026-04-01",
-  "scraped_at": "2026-04-01T18:52",
+  "date": "2026-04-02",
+  "scraped_at": "2026-04-02T22:54",
   "venues": [
-    {
-      "name": "ぴあアリーナMM",
-      "lat": 35.4575,
-      "lng": 139.635,
-      "type": "arena",
-      "capacity": 10000,
-      "website": "https://pia-arena-mm.jp/event/",
-      "events": [
-        {
-          "title": "HYDE Orchestra Tour 2026 JEKYLL",
-          "time": "時間未定",
-          "genre": "ライブ",
-          "url": "https://pia-arena-mm.jp/event/6148.html"
-        }
-      ],
-      "status": "ok",
-      "distance": 0.4
-    },
-    {
-      "name": "横浜ランドマークホール",
-      "lat": 35.4555,
-      "lng": 139.6324,
-      "type": "hall",
-      "capacity": 500,
-      "website": "https://landmarkhall.jp/schedule/",
-      "events": [
-        {
-          "title": "詳細未定",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://landmarkhall.jp/schedule/2026/04/10242/"
-        },
-        {
-          "title": "詳細未定",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://landmarkhall.jp/schedule/2026/04/9239/"
-        }
-      ],
-      "status": "ok",
-      "distance": 0.6
-    },
     {
       "name": "横浜にぎわい座",
       "lat": 35.443,
@@ -53,14 +11,50 @@
       "website": "https://nigiwaiza.yafjp.org/perform/",
       "events": [
         {
-          "title": "横浜にぎわい寄席①",
+          "title": "横浜にぎわい寄席②",
           "time": "14:00",
           "genre": "演芸",
-          "url": "https://nigiwaiza.yafjp.org/perform/archives/31117"
+          "url": "https://nigiwaiza.yafjp.org/perform/archives/31119"
         }
       ],
       "status": "ok",
       "distance": 1.4
+    },
+    {
+      "name": "KT Zepp Yokohama",
+      "lat": 35.4598,
+      "lng": 139.6259,
+      "type": "livehouse",
+      "capacity": 2146,
+      "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
+      "events": [
+        {
+          "title": "Tempalay 対バン：くるり「Tempalay presents \"Fusion-HA.\"」",
+          "time": "19:00",
+          "genre": "イベント",
+          "url": "https://www.zepp.co.jp/hall/yokohama/schedule/single/?rid=155947"
+        }
+      ],
+      "status": "ok",
+      "distance": 1.4
+    },
+    {
+      "name": "横浜アリーナ",
+      "lat": 35.5094,
+      "lng": 139.6172,
+      "type": "arena",
+      "capacity": 17000,
+      "website": "https://www.yokohama-arena.co.jp/event/",
+      "events": [
+        {
+          "title": "平成フラミンゴ キョードー横浜 045-671-9911 月～金 ～ （祝日除く）",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-arena.co.jp/event/"
+        }
+      ],
+      "status": "ok",
+      "distance": 6.4
     },
     {
       "name": "横浜みなとみらいホール",
@@ -83,6 +77,28 @@
       "events": [],
       "status": "js_rendered",
       "distance": 0.3
+    },
+    {
+      "name": "ぴあアリーナMM",
+      "lat": 35.4575,
+      "lng": 139.635,
+      "type": "arena",
+      "capacity": 10000,
+      "website": "https://pia-arena-mm.jp/event/",
+      "events": [],
+      "status": "no_events",
+      "distance": 0.4
+    },
+    {
+      "name": "横浜ランドマークホール",
+      "lat": 35.4555,
+      "lng": 139.6324,
+      "type": "hall",
+      "capacity": 500,
+      "website": "https://landmarkhall.jp/schedule/",
+      "events": [],
+      "status": "no_events",
+      "distance": 0.6
     },
     {
       "name": "横浜赤レンガ倉庫",
@@ -140,34 +156,23 @@
       "distance": 1.2
     },
     {
-      "name": "F.A.D YOKOHAMA",
-      "lat": 35.443,
-      "lng": 139.638,
-      "type": "livehouse",
-      "capacity": 250,
-      "website": "http://www.fad-music.com/fad/?page_id=3",
-      "events": [],
-      "status": "no_events",
-      "distance": 1.4
-    },
-    {
-      "name": "KT Zepp Yokohama",
-      "lat": 35.4598,
-      "lng": 139.6259,
-      "type": "livehouse",
-      "capacity": 2146,
-      "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
-      "events": [],
-      "status": "no_events",
-      "distance": 1.4
-    },
-    {
       "name": "横浜スタジアム",
       "lat": 35.4434,
       "lng": 139.6401,
       "type": "stadium",
       "capacity": 34046,
       "website": "https://www.baystars.co.jp/game/schedule/",
+      "events": [],
+      "status": "no_events",
+      "distance": 1.4
+    },
+    {
+      "name": "F.A.D YOKOHAMA",
+      "lat": 35.443,
+      "lng": 139.638,
+      "type": "livehouse",
+      "capacity": 250,
+      "website": "http://www.fad-music.com/fad/?page_id=3",
       "events": [],
       "status": "no_events",
       "distance": 1.4
@@ -216,17 +221,6 @@
       "events": [],
       "status": "js_rendered",
       "distance": 4.1
-    },
-    {
-      "name": "横浜アリーナ",
-      "lat": 35.5094,
-      "lng": 139.6172,
-      "type": "arena",
-      "capacity": 17000,
-      "website": "https://www.yokohama-arena.co.jp/event/",
-      "events": [],
-      "status": "js_rendered",
-      "distance": 6.4
     },
     {
       "name": "日産スタジアム",
