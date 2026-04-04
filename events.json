@@ -1,43 +1,7 @@
 {
-  "date": "2026-04-04",
-  "scraped_at": "2026-04-04T07:03",
+  "date": "2026-04-05",
+  "scraped_at": "2026-04-05T06:58",
   "venues": [
-    {
-      "name": "横浜みなとみらいホール",
-      "lat": 35.4535,
-      "lng": 139.6384,
-      "type": "hall",
-      "capacity": 2020,
-      "website": "https://yokohama-minatomiraihall.jp/concert/index.html",
-      "events": [
-        {
-          "title": "土） 協力公演 伊藤悠貴（チェロ） バッハ無伴奏全曲",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://yokohama-minatomiraihall.jp/concert/index.html"
-        },
-        {
-          "title": "土） 主催・共催公演 ハマのJACKワークショップ「アンサンブル体験＆ワンポイントアドバイス」【関係者のみ】",
-          "time": "時間未定",
-          "genre": "イベント",
-          "url": "https://yokohama-minatomiraihall.jp/concert/index.html"
-        },
-        {
-          "title": "403.html\" class=\"archive__list-recommend\"> 主催・共催公演 第257回オルガン・１ドルコンサート 感謝をこめて 出演：尾崎麻衣子",
-          "time": "時間未定",
-          "genre": "ライブ",
-          "url": "https://yokohama-minatomiraihall.jp/concert/index.html"
-        },
-        {
-          "title": "280.html\" class=\"archive__list-recommend\"> 主催・共催公演 オリヴィエ・ラトリー オルガン・リサイタル 大ホール",
-          "time": "時間未定",
-          "genre": "クラシック",
-          "url": "https://yokohama-minatomiraihall.jp/concert/index.html"
-        }
-      ],
-      "status": "ok",
-      "distance": 0.2
-    },
     {
       "name": "ぴあアリーナMM",
       "lat": 35.4575,
@@ -50,7 +14,7 @@
           "title": "ゾンビランドサガLIVE",
           "time": "時間未定",
           "genre": "ライブ",
-          "url": "https://pia-arena-mm.jp/event/6073.html"
+          "url": "https://pia-arena-mm.jp/event/6075.html"
         }
       ],
       "status": "ok",
@@ -65,10 +29,10 @@
       "website": "https://landmarkhall.jp/schedule/",
       "events": [
         {
-          "title": "太田基裕",
+          "title": "詳細未定",
           "time": "時間未定",
           "genre": "イベント",
-          "url": "https://landmarkhall.jp/schedule/2026/04/9995/"
+          "url": "https://landmarkhall.jp/schedule/2026/04/9681/"
         }
       ],
       "status": "ok",
@@ -83,13 +47,37 @@
       "website": "https://www.yokohama-akarenga.jp/event/",
       "events": [
         {
-          "title": "～4月5日（日） 赤レンガパーク",
+          "title": "赤レンガパーク <p c",
           "time": "時間未定",
           "genre": "イベント",
           "url": "https://www.yokohama-akarenga.jp/event/"
         },
         {
-          "title": "土）～4月5日（日） 赤レンガパーク",
+          "title": "イベント広場 <p cl",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-akarenga.jp/event/"
+        },
+        {
+          "title": "赤レンガパーク 1号館ホール＆スペースについて 芸術文化の創造・発信基地として横浜赤レンガ倉庫1号館はさまざまな公演・イベントを行っています。",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-akarenga.jp/event/"
+        },
+        {
+          "title": "日） 赤レンガパーク <p c",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-akarenga.jp/event/"
+        },
+        {
+          "title": "日） イベント広場 <p cl",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-akarenga.jp/event/"
+        },
+        {
+          "title": "日） 赤レンガパーク 1号館ホール＆スペースについて 芸術文化の創造・発信基地として横浜赤レンガ倉庫1号館はさまざまな公演・イベントを行っています。",
           "time": "時間未定",
           "genre": "イベント",
           "url": "https://www.yokohama-akarenga.jp/event/"
@@ -125,10 +113,10 @@
       "website": "https://bayhall.jp/schedule/",
       "events": [
         {
-          "title": "NIGHTMARE",
+          "title": "CYNHN",
           "time": "時間未定",
           "genre": "イベント",
-          "url": "https://bayhall.jp/schedule/2026/04/9083/"
+          "url": "https://bayhall.jp/schedule/2026/04/8876/"
         }
       ],
       "status": "ok",
@@ -143,10 +131,10 @@
       "website": "https://nigiwaiza.yafjp.org/perform/",
       "events": [
         {
-          "title": "横浜にぎわい寄席④",
+          "title": "横浜にぎわい寄席⑤～春のこども寄席",
           "time": "14:00",
           "genre": "演芸",
-          "url": "https://nigiwaiza.yafjp.org/perform/archives/31123"
+          "url": "https://nigiwaiza.yafjp.org/perform/archives/31125"
         }
       ],
       "status": "ok",
@@ -161,32 +149,32 @@
       "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
       "events": [
         {
-          "title": "[DAY1] Ave Mujica／BAND-MAID／ReoNa「CENTRAL MUSIC & ENTERTAINMENT FESTIVAL 2026『CENTRAL LAB.』」",
+          "title": "[DAY2] 戸松遥 ／ 花澤香菜「CENTRAL MUSIC & ENTERTAINMENT FESTIVAL 2026『CENTRAL LAB.』」",
           "time": "16:00",
           "genre": "ライブ",
-          "url": "https://www.zepp.co.jp/hall/yokohama/schedule/single/?rid=148689"
+          "url": "https://www.zepp.co.jp/hall/yokohama/schedule/single/?rid=148691"
         }
       ],
       "status": "ok",
       "distance": 1.4
     },
     {
-      "name": "ニッパツ三ツ沢球技場",
-      "lat": 35.4692,
-      "lng": 139.6037,
-      "type": "stadium",
-      "capacity": 15454,
-      "website": "https://yokohamafc.com/game/schedule/",
+      "name": "KAAT神奈川芸術劇場",
+      "lat": 35.4476,
+      "lng": 139.6486,
+      "type": "hall",
+      "capacity": 1270,
+      "website": "https://www.kaat.jp/calendar/",
       "events": [
         {
-          "title": "横浜FC vs ブラウブリッツ秋田",
-          "time": "14:00",
-          "genre": "スポーツ",
-          "url": "https://yokohamafc.com/g/260404_akita/"
+          "title": "Sun) ⏰ Estimated time: Approximately 5 minutes 📝 kaat.jp/news_detail/21… #Rainbow #KAAT",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.kaat.jp/calendar/"
         }
       ],
       "status": "ok",
-      "distance": 4.1
+      "distance": 1.5
     },
     {
       "name": "横浜アリーナ",
@@ -205,6 +193,17 @@
       ],
       "status": "ok",
       "distance": 6.4
+    },
+    {
+      "name": "横浜みなとみらいホール",
+      "lat": 35.4535,
+      "lng": 139.6384,
+      "type": "hall",
+      "capacity": 2020,
+      "website": "https://yokohama-minatomiraihall.jp/concert/index.html",
+      "events": [],
+      "status": "js_rendered",
+      "distance": 0.2
     },
     {
       "name": "パシフィコ横浜",
@@ -240,17 +239,6 @@
       "distance": 1.2
     },
     {
-      "name": "横浜スタジアム",
-      "lat": 35.4434,
-      "lng": 139.6401,
-      "type": "stadium",
-      "capacity": 34046,
-      "website": "https://www.baystars.co.jp/game/schedule/",
-      "events": [],
-      "status": "no_events",
-      "distance": 1.4
-    },
-    {
       "name": "F.A.D YOKOHAMA",
       "lat": 35.443,
       "lng": 139.638,
@@ -262,15 +250,15 @@
       "distance": 1.4
     },
     {
-      "name": "KAAT神奈川芸術劇場",
-      "lat": 35.4476,
-      "lng": 139.6486,
-      "type": "hall",
-      "capacity": 1270,
-      "website": "https://www.kaat.jp/calendar/",
+      "name": "横浜スタジアム",
+      "lat": 35.4434,
+      "lng": 139.6401,
+      "type": "stadium",
+      "capacity": 34046,
+      "website": "https://www.baystars.co.jp/game/schedule/",
       "events": [],
-      "status": "js_rendered",
-      "distance": 1.5
+      "status": "no_events",
+      "distance": 1.4
     },
     {
       "name": "神奈川県民ホール",
@@ -294,6 +282,17 @@
       "events": [],
       "status": "js_rendered",
       "distance": 1.6
+    },
+    {
+      "name": "ニッパツ三ツ沢球技場",
+      "lat": 35.4692,
+      "lng": 139.6037,
+      "type": "stadium",
+      "capacity": 15454,
+      "website": "https://yokohamafc.com/game/schedule/",
+      "events": [],
+      "status": "js_rendered",
+      "distance": 4.1
     },
     {
       "name": "日産スタジアム",
