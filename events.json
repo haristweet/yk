@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-06",
-  "scraped_at": "2026-04-06T06:59",
+  "date": "2026-04-07",
+  "scraped_at": "2026-04-07T07:05",
   "venues": [
     {
       "name": "横浜ランドマークホール",
@@ -14,11 +14,29 @@
           "title": "詳細未定",
           "time": "時間未定",
           "genre": "イベント",
-          "url": "https://landmarkhall.jp/schedule/2026/04/9693/"
+          "url": "https://landmarkhall.jp/schedule/2026/04/9692/"
         }
       ],
       "status": "ok",
       "distance": 0.6
+    },
+    {
+      "name": "Kアリーナ横浜",
+      "lat": 35.4617,
+      "lng": 139.6319,
+      "type": "arena",
+      "capacity": 20000,
+      "website": "https://k-arena.com/schedule/",
+      "events": [
+        {
+          "title": "なにわ男子の逆転男子 祝3周年～スタジオ飛び出してＫアリーナ横浜に来ちゃいました～",
+          "time": "18:30",
+          "genre": "イベント",
+          "url": "https://k-arena.com/schedule/"
+        }
+      ],
+      "status": "ok",
+      "distance": 1.0
     },
     {
       "name": "横浜にぎわい座",
@@ -29,14 +47,38 @@
       "website": "https://nigiwaiza.yafjp.org/perform/",
       "events": [
         {
-          "title": "横浜にぎわい寄席⑥",
+          "title": "横浜にぎわい寄席⑦",
           "time": "14:00",
           "genre": "演芸",
-          "url": "https://nigiwaiza.yafjp.org/perform/archives/31127"
+          "url": "https://nigiwaiza.yafjp.org/perform/archives/31129"
+        },
+        {
+          "title": "遊雀好み 桜木町二人会 第10回 立川生志＆三遊亭遊雀",
+          "time": "19:00",
+          "genre": "イベント",
+          "url": "https://nigiwaiza.yafjp.org/perform/archives/31214"
         }
       ],
       "status": "ok",
       "distance": 1.4
+    },
+    {
+      "name": "横浜アリーナ",
+      "lat": 35.5094,
+      "lng": 139.6172,
+      "type": "arena",
+      "capacity": 17000,
+      "website": "https://www.yokohama-arena.co.jp/event/",
+      "events": [
+        {
+          "title": "TM NETWORK DISK GARAGE https://info.diskgarage.com チケットはこちら!",
+          "time": "時間未定",
+          "genre": "イベント",
+          "url": "https://www.yokohama-arena.co.jp/event/"
+        }
+      ],
+      "status": "ok",
+      "distance": 6.4
     },
     {
       "name": "横浜みなとみらいホール",
@@ -83,17 +125,6 @@
       "distance": 0.7
     },
     {
-      "name": "Kアリーナ横浜",
-      "lat": 35.4617,
-      "lng": 139.6319,
-      "type": "arena",
-      "capacity": 20000,
-      "website": "https://k-arena.com/schedule/",
-      "events": [],
-      "status": "js_rendered",
-      "distance": 1.0
-    },
-    {
       "name": "神奈川県立音楽堂",
       "lat": 35.4474,
       "lng": 139.6327,
@@ -138,23 +169,23 @@
       "distance": 1.4
     },
     {
-      "name": "F.A.D YOKOHAMA",
-      "lat": 35.443,
-      "lng": 139.638,
-      "type": "livehouse",
-      "capacity": 250,
-      "website": "http://www.fad-music.com/fad/?page_id=3",
-      "events": [],
-      "status": "no_events",
-      "distance": 1.4
-    },
-    {
       "name": "KT Zepp Yokohama",
       "lat": 35.4598,
       "lng": 139.6259,
       "type": "livehouse",
       "capacity": 2146,
       "website": "https://www.zepp.co.jp/hall/yokohama/schedule/",
+      "events": [],
+      "status": "no_events",
+      "distance": 1.4
+    },
+    {
+      "name": "F.A.D YOKOHAMA",
+      "lat": 35.443,
+      "lng": 139.638,
+      "type": "livehouse",
+      "capacity": 250,
+      "website": "http://www.fad-music.com/fad/?page_id=3",
       "events": [],
       "status": "no_events",
       "distance": 1.4
@@ -203,17 +234,6 @@
       "events": [],
       "status": "js_rendered",
       "distance": 4.1
-    },
-    {
-      "name": "横浜アリーナ",
-      "lat": 35.5094,
-      "lng": 139.6172,
-      "type": "arena",
-      "capacity": 17000,
-      "website": "https://www.yokohama-arena.co.jp/event/",
-      "events": [],
-      "status": "js_rendered",
-      "distance": 6.4
     },
     {
       "name": "日産スタジアム",
